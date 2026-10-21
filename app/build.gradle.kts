@@ -56,4 +56,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation("com.google.dagger:hilt-android:2.60.1")
     ksp("com.google.dagger:hilt-android-compiler:2.60.1")
+
+    //implementation(libs.navigation.compose)
+    //implementation(libs.kotlinx.serialization.json)
 }
