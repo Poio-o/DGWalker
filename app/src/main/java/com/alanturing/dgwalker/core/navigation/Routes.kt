@@ -36,9 +36,9 @@ sealed class Routes(val route: String) {
     @Serializable
     object ExchangeQR : Routes("exchangeQrScreen")
     @Serializable
-    class ChatDetail(chatId:Int) : Routes("chatDetailScreen/${chatId}")
+    class ChatDetail(chatUID:String) : Routes("chatDetailScreen/${chatUID}")
     @Serializable
-    class FriendDetail(friendId:Int) : Routes("friendDetailScreen/${friendId}")
+    class FriendDetail(friendUID:String) : Routes("friendDetailScreen/${friendUID}")
     @Serializable
-    class DigimonDetail(digimonId:Int) : Routes("digimonDetailScreen/${digimonId}")
+    class DigimonDetail(digimonUID:String) : Routes("digimonDetailScreen/${digimonUID}")
 }
