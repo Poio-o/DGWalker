@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.alanturing.dgwalker.core.navigation.AppNavHost
 import com.alanturing.dgwalker.core.ui.theme.DGWalkerTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +21,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             DGWalkerTheme {
                 Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
-                    AppNavHost()
+                    AppNavHost(
+                        modifier = Modifier.padding(innerPadding)
+                    )
                 }
             }
         }
