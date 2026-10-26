@@ -34,7 +34,7 @@ sealed class Routes(val route: String) {
     @Serializable
     object ExchangeResult : Routes("ExchangeResultScreen")
     @Serializable
-    object ExchangeQR : Routes("ExchangeQrScreen")
+    object ExchangeQr : Routes("ExchangeQrScreen")
     @Serializable
     class ChatDetail(chatUID:String) : Routes("ChatDetailScreen/${chatUID}")
     @Serializable
