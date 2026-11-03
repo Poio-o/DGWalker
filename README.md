@@ -1,4 +1,4 @@
-# DGWalker 📱👣
+# DGWalker
 ### Aplicación Android Nativa: Exploración, Podómetro, Sensores y Modo Offline-First
 
 ![Plataforma](https://img.shields.io/badge/Plataforma-Android_Nativo-3DDC84.svg?logo=android&logoColor=white)
