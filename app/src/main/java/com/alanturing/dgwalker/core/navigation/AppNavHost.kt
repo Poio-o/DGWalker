@@ -27,7 +27,7 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
     NavHost(
         navController = navController,
-        startDestination = Routes.Register.route,
+        startDestination = Routes.Login.route,
         modifier = modifier
     ) {
 
