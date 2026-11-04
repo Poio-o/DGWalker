@@ -5,6 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.alanturing.dgwalker.features.auth.ui.ForgotPasswordScreen
+import com.alanturing.dgwalker.features.auth.ui.LoginScreen
+import com.alanturing.dgwalker.features.auth.ui.RegisterScreen
 import com.alanturing.dgwalker.features.home.ui.HomeScreen
 import com.alanturing.dgwalker.features.profile.ui.ProfileScreen
 import com.alanturing.dgwalker.features.friends.ui.FriendListScreen
@@ -24,9 +27,31 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
     NavHost(
         navController = navController,
-        startDestination = Routes.Home.route,
+        startDestination = Routes.Register.route,
         modifier = modifier
     ) {
+
+        composable(Routes.Login.route) {
+            LoginScreen(
+                onNavigateToHome = { navController.navigate(Routes.Home.route) },
+                onNavigateToRegister = { navController.navigate(Routes.Register.route) },
+                onNavigateToForgotPassword = { navController.navigate(Routes.ForgotPassword.route) }
+            )
+        }
+
+        composable(Routes.Register.route) {
+            RegisterScreen(
+                onNavigateToHome = { navController.navigate(Routes.Home.route) },
+                onNagivateToLogin = { navController.navigate(Routes.Login.route) }
+            )
+        }
+
+        composable(Routes.ForgotPassword.route) {
+            ForgotPasswordScreen(
+
+            )
+        }
+
         composable(Routes.Home.route) {
             HomeScreen(
                 onNavigateToProfile = { navController.navigate(Routes.Profile.route) },
