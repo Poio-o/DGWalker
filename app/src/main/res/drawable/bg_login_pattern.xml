@@ -1,0 +1,40 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp"
+    android:height="800dp"
+    android:viewportWidth="400"
+    android:viewportHeight="800">
+    <path
+        android:fillColor="#010816"
+        android:pathData="M0,0h400v800h-400z" />
+    <path
+        android:fillColor="#062044"
+        android:fillAlpha="0.4"
+        android:pathData="M50,100h50v50h-50z M250,50h70v70h-70z M100,300h60v60h-60z M300,250h50v50h-50z M50,550h80v80h-80z M250,600h60v60h-60z M150,700h50v50h-50z" />
+    <path
+        android:strokeColor="#062044"
+        android:strokeWidth="1"
+        android:pathData="M75,125 L75,200 L150,200 M285,85 L350,85 L350,150 M130,330 L200,330 L200,400 M325,275 L325,350 L250,350 M90,590 L150,590 L150,650 M280,630 L280,700 L220,700" />
+    <path
+        android:strokeColor="#00B0FF"
+        android:strokeWidth="1.5"
+        android:strokeAlpha="0.7"
+        android:pathData="M200,-125 L335,-25 L200,75 L65,-25 Z M200,75 L335,175 L200,275 L65,175 Z M200,275 L335,375 L200,475 L65,375 Z M200,475 L335,575 L200,675 L65,575 Z M200,675 L335,775 L200,875 L65,775 Z" />
+    <path
+        android:strokeColor="#00E5FF"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.9"
+        android:pathData="M200,-100 L310,-25 L200,50 L90,-25 Z M200,100 L310,175 L200,250 L90,175 Z M200,300 L310,375 L200,450 L90,375 Z M200,500 L310,575 L200,650 L90,575 Z M200,700 L310,775 L200,850 L90,775 Z" />
+    <path
+        android:strokeColor="#80D8FF"
+        android:strokeWidth="1"
+        android:strokeAlpha="1.0"
+        android:pathData="M200,-75 L285,-25 L200,25 L115,-25 Z M200,125 L285,175 L200,225 L115,175 Z M200,325 L285,375 L200,425 L115,375 Z M200,525 L285,575 L200,625 L115,575 Z M200,725 L285,775 L200,825 L115,775 Z" />
+    <path
+        android:strokeColor="#00E5FF"
+        android:strokeWidth="1.5"
+        android:strokeAlpha="0.8"
+        android:pathData="M0,50 L120,150 L0,250 L-120,150 Z M400,50 L520,150 L400,250 L280,150 Z M0,250 L120,350 L0,450 L-120,350 Z M400,250 L520,350 L400,450 L280,350 Z M0,450 L120,550 L0,650 L-120,550 Z M400,450 L520,550 L400,650 L280,550 Z M0,650 L120,750 L0,850 L-120,750 Z M400,650 L520,750 L400,850 L280,750 Z" />
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M200,-25a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M335,-25a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M65,-25a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M200,75a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M335,75a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M65,75a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M200,175a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M335,175a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M65,175a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M200,275a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M335,275a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M65,275a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M200,375a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M335,375a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M65,375a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M200,475a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M335,475a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M65,475a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M200,575a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M335,575a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M65,575a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M200,675a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M335,675a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M65,675a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M200,775a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M335,775a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z M65,775a4,4 0,1 1,-8 0a4,4 0,1 1,8 0z" />
+</vector>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DGWalker</string>
+    <string name="register_label">Registrarse</string>
+    <string name="insert_user_label">Introducir nombre de usuario</string>
+    <string name="insert_gmail_label">Introducir correo electrónico</string>
+    <string name="insert_password_label">Introducir contraseña</string>
+    <string name="confirm_insert_password_label">Confirmar contraseña</string>
+    <string name="user_or_gmail_label">usuario/correo electrónico</string>
+    <string name="login_button">Iniciar sesión</string>
+    <string name="already_have_an_account">¿Ya tienes una cuenta? Iniciar sesión</string>
+    <string name="forgot_password_button">¿Olvidaste tu contraseña?</string>
+    <string name="forgot_password_instruction_label">Te enviaremos un correo electrónico con las instrucciones para recuperar tu cuenta.</string>
+    <string name="forgot_password_insert_user_or_gmail_label">Introducir usuario o correo electrónico</string>
+</resources>

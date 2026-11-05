@@ -11,32 +11,55 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = MdThemeDarkPrimary,
+    onPrimary = MdThemeDarkOnPrimary,
+    primaryContainer = MdThemeDarkPrimaryContainer,
+    onPrimaryContainer = MdThemeDarkOnPrimaryContainer,
+    secondary = MdThemeDarkSecondary,
+    onSecondary = MdThemeDarkOnSecondary,
+    secondaryContainer = MdThemeDarkSecondaryContainer,
+    onSecondaryContainer = MdThemeDarkOnSecondaryContainer,
+    tertiary = MdThemeDarkTertiary,
+    onTertiary = MdThemeDarkOnTertiary,
+    tertiaryContainer = MdThemeDarkTertiaryContainer,
+    onTertiaryContainer = MdThemeDarkOnTertiaryContainer,
+    background = MdThemeDarkBackground,
+    onBackground = MdThemeDarkOnBackground,
+    surface = MdThemeDarkSurface,
+    onSurface = MdThemeDarkOnSurface,
+    surfaceVariant = MdThemeDarkSurfaceVariant,
+    onSurfaceVariant = MdThemeDarkOnSurfaceVariant,
+    outline = MdThemeDarkOutline,
+    outlineVariant = MdThemeDarkOutlineVariant
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = MdThemeLightPrimary,
+    onPrimary = MdThemeLightOnPrimary,
+    primaryContainer = MdThemeLightPrimaryContainer,
+    onPrimaryContainer = MdThemeLightOnPrimaryContainer,
+    secondary = MdThemeLightSecondary,
+    onSecondary = MdThemeLightOnSecondary,
+    secondaryContainer = MdThemeLightSecondaryContainer,
+    onSecondaryContainer = MdThemeLightOnSecondaryContainer,
+    tertiary = MdThemeLightTertiary,
+    onTertiary = MdThemeLightOnTertiary,
+    tertiaryContainer = MdThemeLightTertiaryContainer,
+    onTertiaryContainer = MdThemeLightOnTertiaryContainer,
+    background = MdThemeLightBackground,
+    onBackground = MdThemeLightOnBackground,
+    surface = MdThemeLightSurface,
+    onSurface = MdThemeLightOnSurface,
+    surfaceVariant = MdThemeLightSurfaceVariant,
+    onSurfaceVariant = MdThemeLightOnSurfaceVariant,
+    outline = MdThemeLightOutline,
+    outlineVariant = MdThemeLightOutlineVariant
 )
 
 @Composable
 fun DGWalkerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -44,14 +67,14 @@ fun DGWalkerTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        else -> DarkColorScheme
     }
 
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
+        shapes = Shapes,
         content = content
     )
 }
