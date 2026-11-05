@@ -18,10 +18,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -31,7 +29,9 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,6 +48,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.alanturing.dgwalker.R
 import com.alanturing.dgwalker.core.ui.theme.ButtonGradientBottom
 import com.alanturing.dgwalker.core.ui.theme.ButtonGradientTop
@@ -62,12 +63,17 @@ import com.alanturing.dgwalker.core.ui.theme.NeonBlueBorder
 fun LoginScreen(
     onNavigateToHome: () -> Unit,
     onNavigateToRegister: () -> Unit,
-    onNavigateToForgotPassword: () -> Unit
+    onNavigateToForgotPassword: () -> Unit,
+    viewModel: LoginViewModel = hiltViewModel()
 ) {
-    val email = remember { mutableStateOf("") }
-    val password = remember { mutableStateOf("") }
+    val uiState by viewModel.uiState.collectAsState()
     val focusManager = LocalFocusManager.current
-
+    LaunchedEffect(uiState.isSuccess) {
+        if (uiState.isSuccess) {
+            onNavigateToHome()
+            viewModel.resetSuccessState()
+        }
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -80,7 +86,7 @@ fun LoginScreen(
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.bg_login_pattern),
+            painter = painterResource(id = R.drawable.bg_pattern),
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -104,8 +110,8 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(48.dp))
 
             OutlinedTextField(
-                value = email.value,
-                onValueChange = { email.value = it },
+                value = uiState.userOrEmail,
+                onValueChange = { viewModel.onUserOrEmailChanged(it) },
                 placeholder = {
                     Text(
                         text = stringResource(id = R.string.user_or_gmail_label),
@@ -136,8 +142,8 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
-                value = password.value,
-                onValueChange = { password.value = it },
+                value = uiState.password,
+                onValueChange = { viewModel.onPasswordChanged(it) },
                 placeholder = {
                     Text(
                         text = stringResource(id = R.string.insert_password_label),
@@ -187,14 +193,27 @@ fun LoginScreen(
                 )
             }
 
+            if (uiState.errorMessage != null) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = uiState.errorMessage!!,
+                    color = MaterialTheme.colorScheme.error,
+                    fontSize = 14.sp
+                )
+            }
+
+
             Spacer(modifier = Modifier.height(32.dp))
 
             val buttonBrush = Brush.verticalGradient(
                 colors = listOf(ButtonGradientTop, ButtonGradientBottom)
             )
 
+
+
             Button(
-                onClick = { onNavigateToHome() },
+                onClick = { viewModel.login() },
+                enabled = !uiState.isLoading,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -218,9 +237,7 @@ fun LoginScreen(
                 horizontalArrangement = Arrangement.spacedBy(24.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                SocialIconButton(icon = Icons.Default.Share)
-                SocialIconButton(icon = Icons.Default.Email)
-                SocialIconButton(icon = Icons.Default.Lock)
+                SocialIconButton(icon = Icons.Default.Person)
             }
         }
     }

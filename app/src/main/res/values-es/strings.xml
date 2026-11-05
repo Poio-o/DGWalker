@@ -8,8 +8,10 @@
     <string name="confirm_insert_password_label">Confirmar contraseña</string>
     <string name="user_or_gmail_label">usuario/correo electrónico</string>
     <string name="login_button">Iniciar sesión</string>
+    <string name="return_to_login_button">Volver a inicio de sesión</string>
     <string name="already_have_an_account">¿Ya tienes una cuenta? Iniciar sesión</string>
     <string name="forgot_password_button">¿Olvidaste tu contraseña?</string>
     <string name="forgot_password_instruction_label">Te enviaremos un correo electrónico con las instrucciones para recuperar tu cuenta.</string>
     <string name="forgot_password_insert_user_or_gmail_label">Introducir usuario o correo electrónico</string>
+    <string name="send_forgot_password_email">Enviar correo</string>
 </resources>

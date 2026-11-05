@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp")
-    //id("com.google.dagger.hilt.android")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -59,6 +59,7 @@ dependencies {
         androidTestImplementation(libs.androidx.junit)
         debugImplementation(libs.androidx.compose.ui.test.manifest)
         debugImplementation(libs.androidx.compose.ui.tooling)
+        implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
         implementation("com.google.dagger:hilt-android:2.60.1")
         ksp("com.google.dagger:hilt-android-compiler:2.60.1")
     }

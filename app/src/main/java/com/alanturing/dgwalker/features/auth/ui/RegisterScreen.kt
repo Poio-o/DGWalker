@@ -1,5 +1,7 @@
 package com.alanturing.dgwalker.features.auth.ui
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -10,22 +12,46 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import com.alanturing.dgwalker.R
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.alanturing.dgwalker.R
+import com.alanturing.dgwalker.core.ui.theme.ButtonGradientBottom
+import com.alanturing.dgwalker.core.ui.theme.ButtonGradientTop
+import com.alanturing.dgwalker.core.ui.theme.ButtonTextDark
+import com.alanturing.dgwalker.core.ui.theme.CardBackground
+import com.alanturing.dgwalker.core.ui.theme.ElectricCyan
+import com.alanturing.dgwalker.core.ui.theme.InputPlaceholder
+import com.alanturing.dgwalker.core.ui.theme.InputTextWhite
+import com.alanturing.dgwalker.core.ui.theme.NeonBlueBorder
 
 @Composable
 fun RegisterScreen(
@@ -37,118 +63,216 @@ fun RegisterScreen(
     val password = remember { mutableStateOf("") }
     val confirmPassword = remember { mutableStateOf("") }
     val focusManager = LocalFocusManager.current
-    Column(
+
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
-                indication = null,
-                enabled = true,
-                onClickLabel = null,
-                role = null
+                indication = null
             ) {
                 focusManager.clearFocus()
             },
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        contentAlignment = Alignment.Center
     ) {
-        Box(
-            contentAlignment = Alignment.Center
+        Image(
+            painter = painterResource(id = R.drawable.bg_pattern),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             Text(
                 text = stringResource(id = R.string.app_name),
-                textAlign = TextAlign.Center
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+                fontWeight = FontWeight.Bold,
+                fontSize = 36.sp
             )
-        }
 
-        Spacer(
-            modifier = Modifier.height(20.dp)
-        )
+            Spacer(modifier = Modifier.height(40.dp))
 
-        Box(
-            contentAlignment = Alignment.CenterStart
-        ) {
-            TextField(
+            OutlinedTextField(
                 value = user.value,
                 onValueChange = { user.value = it },
-                label = { Text(text = stringResource(id = R.string.insert_user_label)) },
-                modifier = Modifier
-                    .width(300.dp)
+                placeholder = {
+                    Text(
+                        text = stringResource(id = R.string.insert_user_label),
+                        color = InputPlaceholder
+                    )
+                },
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = null,
+                        tint = InputPlaceholder
+                    )
+                },
+                singleLine = true,
+                shape = RoundedCornerShape(8.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = CardBackground,
+                    unfocusedContainerColor = CardBackground,
+                    disabledContainerColor = CardBackground,
+                    focusedBorderColor = ElectricCyan,
+                    unfocusedBorderColor = NeonBlueBorder,
+                    focusedTextColor = InputTextWhite,
+                    unfocusedTextColor = InputTextWhite
+                ),
+                modifier = Modifier.fillMaxWidth()
             )
-        }
-        Spacer(
-            modifier = Modifier.height(5.dp)
-        )
-        Box(
-            contentAlignment = Alignment.CenterStart
-        ) {
-            TextField(
+
+            Spacer(modifier = Modifier.height(14.dp))
+
+            OutlinedTextField(
                 value = email.value,
                 onValueChange = { email.value = it },
-                label = { Text(text = stringResource(id = R.string.insert_gmail_label)) },
-                modifier = Modifier
-                    .width(300.dp)
+                placeholder = {
+                    Text(
+                        text = stringResource(id = R.string.insert_gmail_label),
+                        color = InputPlaceholder
+                    )
+                },
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Email,
+                        contentDescription = null,
+                        tint = InputPlaceholder
+                    )
+                },
+                singleLine = true,
+                shape = RoundedCornerShape(8.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = CardBackground,
+                    unfocusedContainerColor = CardBackground,
+                    disabledContainerColor = CardBackground,
+                    focusedBorderColor = ElectricCyan,
+                    unfocusedBorderColor = NeonBlueBorder,
+                    focusedTextColor = InputTextWhite,
+                    unfocusedTextColor = InputTextWhite
+                ),
+                modifier = Modifier.fillMaxWidth()
             )
-        }
-        Spacer(
-            modifier = Modifier.height(5.dp)
-        )
-        Box(
-            contentAlignment = Alignment.CenterStart
-        ) {
-            TextField(
+
+            Spacer(modifier = Modifier.height(14.dp))
+
+            OutlinedTextField(
                 value = password.value,
                 onValueChange = { password.value = it },
+                placeholder = {
+                    Text(
+                        text = stringResource(id = R.string.insert_password_label),
+                        color = InputPlaceholder
+                    )
+                },
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Lock,
+                        contentDescription = null,
+                        tint = InputPlaceholder
+                    )
+                },
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                label = { Text(text = stringResource(id = R.string.insert_password_label)) },
-                modifier = Modifier
-                    .width(300.dp)
+                singleLine = true,
+                shape = RoundedCornerShape(8.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = CardBackground,
+                    unfocusedContainerColor = CardBackground,
+                    disabledContainerColor = CardBackground,
+                    focusedBorderColor = ElectricCyan,
+                    unfocusedBorderColor = NeonBlueBorder,
+                    focusedTextColor = InputTextWhite,
+                    unfocusedTextColor = InputTextWhite
+                ),
+                modifier = Modifier.fillMaxWidth()
             )
-        }
-        Spacer(
-            modifier = Modifier.height(5.dp)
-        )
-        Box(
-            contentAlignment = Alignment.CenterStart
-        ) {
-            TextField(
+
+            Spacer(modifier = Modifier.height(14.dp))
+
+            OutlinedTextField(
                 value = confirmPassword.value,
                 onValueChange = { confirmPassword.value = it },
+                placeholder = {
+                    Text(
+                        text = stringResource(id = R.string.confirm_insert_password_label),
+                        color = InputPlaceholder
+                    )
+                },
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Lock,
+                        contentDescription = null,
+                        tint = InputPlaceholder
+                    )
+                },
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                label = { Text(text = stringResource(id = R.string.confirm_insert_password_label)) },
+                singleLine = true,
+                shape = RoundedCornerShape(8.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = CardBackground,
+                    unfocusedContainerColor = CardBackground,
+                    disabledContainerColor = CardBackground,
+                    focusedBorderColor = ElectricCyan,
+                    unfocusedBorderColor = NeonBlueBorder,
+                    focusedTextColor = InputTextWhite,
+                    unfocusedTextColor = InputTextWhite
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = stringResource(id = R.string.login_button),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    fontSize = 14.sp,
+                    modifier = Modifier.clickable { onNagivateToLogin() }
+                )
+                Text(
+                    text = stringResource(id = R.string.forgot_password_button),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    fontSize = 14.sp,
+                    modifier = Modifier.clickable { onNagivateToLogin() }
+                )
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            val buttonBrush = Brush.verticalGradient(
+                colors = listOf(ButtonGradientTop, ButtonGradientBottom)
+            )
+
+            Button(
+                onClick = { onNavigateToHome() },
                 modifier = Modifier
-                    .width(300.dp)
-            )
-        }
-        Spacer(
-            modifier = Modifier.height(5.dp)
-        )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically
-
-        ) {
-            Text(
-                modifier = Modifier.clickable{onNagivateToLogin()},
-                text = stringResource(id = R.string.already_have_an_account),
-            )
-        }
-
-        Spacer(
-            modifier = Modifier.height(30.dp)
-        )
-        Box(
-
-        ){
-            Text(
-                modifier = Modifier.clickable{onNavigateToHome()},
-                text = stringResource(id = R.string.register_label),
-
-            )
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .clip(RoundedCornerShape(24.dp))
+                    .background(buttonBrush),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent
+                )
+            ) {
+                Text(
+                    text = stringResource(id = R.string.register_label),
+                    color = ButtonTextDark,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
 }
-
