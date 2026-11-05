@@ -1,14 +1,13 @@
 <resources>
     <string name="app_name">DGWalker</string>
     <string name="register_label">Register</string>
-    <string name="insert_user_label">Insert username</string>
-    <string name="insert_gmail_label">Insert gmail</string>
-    <string name="insert_password_label">Insert password</string>
+    <string name="insert_user_label">Enter username</string>
+    <string name="insert_gmail_label">Enter gmail</string>
+    <string name="insert_password_label">Enter password</string>
     <string name="confirm_insert_password_label">Confirm password</string>
-    <string name="user_or_gmail_label">username/gmail</string>
+    <string name="user_or_gmail_label">Enter email/username</string>
     <string name="login_button">Log in</string>
     <string name="already_have_an_account">Already have an account? Log in</string>
-    <string name="forgot_password_button">Forgot password</string>
+    <string name="forgot_password_label">Forgot password?</string>
     <string name="forgot_password_instruction_label">We’ll send you an email with the instructions to recover your account.</string>
-    <string name="forgot_password_insert_user_or_gmail_label">Insert username or gmail</string>
 </resources>

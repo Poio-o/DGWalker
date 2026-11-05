@@ -1,6 +1,5 @@
 package com.alanturing.dgwalker.features.auth.ui
 
-import android.app.LocaleManager
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -71,7 +69,7 @@ fun ForgotPasswordScreen(
          TextField(
              value = emailOrUsername.value,
              onValueChange = {emailOrUsername.value = it},
-             label = {Text(text = stringResource(id = R.string.forgot_password_insert_user_or_gmail_label))}
+             label = {Text(text = stringResource(id = R.string.user_or_gmail_label))}
          )
         }
     }
