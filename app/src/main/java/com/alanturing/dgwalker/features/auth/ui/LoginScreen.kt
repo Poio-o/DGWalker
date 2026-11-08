@@ -68,6 +68,11 @@ fun LoginScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val focusManager = LocalFocusManager.current
+    val errorMessage = when {
+        uiState.errorMessageResId != null -> stringResource(id = uiState.errorMessageResId!!)
+        else -> uiState.errorMessage
+    }
+
     LaunchedEffect(uiState.isSuccess) {
         if (uiState.isSuccess) {
             onNavigateToHome()
@@ -193,23 +198,20 @@ fun LoginScreen(
                 )
             }
 
-            if (uiState.errorMessage != null) {
+            if (errorMessage != null) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = uiState.errorMessage!!,
+                    text = errorMessage,
                     color = MaterialTheme.colorScheme.error,
                     fontSize = 14.sp
                 )
             }
-
 
             Spacer(modifier = Modifier.height(32.dp))
 
             val buttonBrush = Brush.verticalGradient(
                 colors = listOf(ButtonGradientTop, ButtonGradientBottom)
             )
-
-
 
             Button(
                 onClick = { viewModel.login() },

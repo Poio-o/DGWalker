@@ -31,6 +31,21 @@ class LocalAuthServiceImpl : AuthService {
         email: String,
         password: String
     ): Result<User> {
-        TODO("Not yet implemented")
+        val userExists = users.any {
+            it.username.equals(user, ignoreCase = true) || it.email.equals(email, ignoreCase = true)
+        }
+
+        return if (userExists) {
+            Result.failure(Exception("El usuario o correo electrónico ya está registrado"))
+        } else {
+            val newUser = LocalUserData(
+                uid = (users.size + 1).toString(),
+                username = user,
+                email = email,
+                password = password
+            )
+            users.add(newUser)
+            Result.success(User(newUser.uid, newUser.username, newUser.email, newUser.password))
+        }
     }
 }

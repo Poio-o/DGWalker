@@ -13,4 +13,10 @@
     <string name="forgot_password_instruction_label">We’ll send you an email with the instructions to recover your account.</string>
     <string name="forgot_password_insert_user_or_gmail_label">Enter email/username</string>
     <string name="send_forgot_password_email">Send email</string>
+    <string name="fill_in_all_fields">Fill in all fields</string>
+    <string name="passwords_dont_match">Passwords don’t match</string>
+    <string name="error_registering_user">Error registering user</string>
+    <string name="user_or_email_already_exists">User or email already exists</string>
+    <string name="fill_in_both_fields">Please enter both fields</string>
+    <string name="invalid_credentials">Invalid credentials</string>
 </resources>

@@ -1,7 +1,9 @@
 package com.alanturing.dgwalker.features.auth.ui
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alanturing.dgwalker.R
 import com.alanturing.dgwalker.features.domain.repository.AuthService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,8 +15,9 @@ import javax.inject.Inject
 
 data class LoginUiState(
     val userOrEmail: String = "",
-    val password: String ="",
+    val password: String = "",
     val isLoading: Boolean = false,
+    @StringRes val errorMessageResId: Int? = null,
     val errorMessage: String? = null,
     val isSuccess: Boolean = false
 )
@@ -26,30 +29,34 @@ class LoginViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
+
     fun onUserOrEmailChanged(input: String) {
-        _uiState.update { it.copy(userOrEmail = input, errorMessage = null) }
+        _uiState.update { it.copy(userOrEmail = input, errorMessageResId = null, errorMessage = null) }
     }
+
     fun onPasswordChanged(input: String) {
-        _uiState.update { it.copy(password = input, errorMessage = null) }
+        _uiState.update { it.copy(password = input, errorMessageResId = null, errorMessage = null) }
     }
+
     fun login() {
         val currentState = _uiState.value
         if (currentState.userOrEmail.isBlank() || currentState.password.isBlank()) {
-            _uiState.update { it.copy(errorMessage = "Please enter both fields.") }
+            _uiState.update { it.copy(errorMessageResId = R.string.fill_in_both_fields, errorMessage = null) }
             return
         }
         viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+            _uiState.update { it.copy(isLoading = true, errorMessageResId = null, errorMessage = null) }
             val result = authService.login(currentState.userOrEmail, currentState.password)
             result.fold(
                 onSuccess = {
                     _uiState.update { it.copy(isLoading = false, isSuccess = true) }
                 },
-                onFailure = { error ->
+                onFailure = {
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            errorMessage = error.localizedMessage ?: "Invalid credentials"
+                            errorMessageResId = R.string.invalid_credentials,
+                            errorMessage = null
                         )
                     }
                 }

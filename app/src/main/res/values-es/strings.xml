@@ -14,4 +14,10 @@
     <string name="forgot_password_instruction_label">Te enviaremos un correo electrónico con las instrucciones para recuperar tu cuenta.</string>
     <string name="forgot_password_insert_user_or_gmail_label">Introducir usuario o correo electrónico</string>
     <string name="send_forgot_password_email">Enviar correo</string>
+    <string name="fill_in_all_fields">Rellena todos los campos</string>
+    <string name="passwords_dont_match">Las contraseñas no coinciden</string>
+    <string name="error_registering_user">Error al registrar al usuario</string>
+    <string name="user_or_email_already_exists">El usuario o correo electrónico ya está registrado</string>
+    <string name="fill_in_both_fields">Por favor, introduce ambos campos</string>
+    <string name="invalid_credentials">Credenciales no válidas</string>
 </resources>

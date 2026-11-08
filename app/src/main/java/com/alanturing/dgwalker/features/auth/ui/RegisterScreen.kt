@@ -27,7 +27,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,6 +45,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.alanturing.dgwalker.R
 import com.alanturing.dgwalker.core.ui.theme.ButtonGradientBottom
 import com.alanturing.dgwalker.core.ui.theme.ButtonGradientTop
@@ -56,13 +59,22 @@ import com.alanturing.dgwalker.core.ui.theme.NeonBlueBorder
 @Composable
 fun RegisterScreen(
     onNavigateToHome: () -> Unit,
-    onNagivateToLogin: () -> Unit
+    onNagivateToLogin: () -> Unit,
+    viewModel: RegisterViewModel = hiltViewModel()
 ) {
-    val user = remember { mutableStateOf("") }
-    val email = remember { mutableStateOf("") }
-    val password = remember { mutableStateOf("") }
-    val confirmPassword = remember { mutableStateOf("") }
+    val uiState by viewModel.uiState.collectAsState()
     val focusManager = LocalFocusManager.current
+    val errorMessage = when {
+        uiState.errorMessageResId != null -> stringResource(id = uiState.errorMessageResId!!)
+        else -> uiState.errorMessage
+    }
+
+    LaunchedEffect(uiState.isSuccess) {
+        if (uiState.isSuccess) {
+            onNavigateToHome()
+            viewModel.resetSuccessState()
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -100,8 +112,8 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(40.dp))
 
             OutlinedTextField(
-                value = user.value,
-                onValueChange = { user.value = it },
+                value = uiState.username,
+                onValueChange = { viewModel.onUsernameChanged(it) },
                 placeholder = {
                     Text(
                         text = stringResource(id = R.string.insert_user_label),
@@ -132,8 +144,8 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(14.dp))
 
             OutlinedTextField(
-                value = email.value,
-                onValueChange = { email.value = it },
+                value = uiState.email,
+                onValueChange = { viewModel.onEmailChanged(it) },
                 placeholder = {
                     Text(
                         text = stringResource(id = R.string.insert_gmail_label),
@@ -164,8 +176,8 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(14.dp))
 
             OutlinedTextField(
-                value = password.value,
-                onValueChange = { password.value = it },
+                value = uiState.password,
+                onValueChange = { viewModel.onPasswordChanged(it) },
                 placeholder = {
                     Text(
                         text = stringResource(id = R.string.insert_password_label),
@@ -198,8 +210,8 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(14.dp))
 
             OutlinedTextField(
-                value = confirmPassword.value,
-                onValueChange = { confirmPassword.value = it },
+                value = uiState.confirmPassword,
+                onValueChange = { viewModel.onConfirmPasswordChanged(it) },
                 placeholder = {
                     Text(
                         text = stringResource(id = R.string.confirm_insert_password_label),
@@ -229,6 +241,15 @@ fun RegisterScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
+            if (errorMessage != null) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = errorMessage,
+                    color = MaterialTheme.colorScheme.error,
+                    fontSize = 14.sp
+                )
+            }
+
             Spacer(modifier = Modifier.height(16.dp))
 
             Row(
@@ -256,7 +277,8 @@ fun RegisterScreen(
             )
 
             Button(
-                onClick = { onNavigateToHome() },
+                onClick = { viewModel.register() },
+                enabled = !uiState.isLoading,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
