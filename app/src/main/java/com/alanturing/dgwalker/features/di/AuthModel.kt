@@ -1,6 +1,6 @@
 package com.alanturing.dgwalker.features.di
 
-import com.alanturing.dgwalker.features.data.local.LocalAuthServiceImpl
+import com.alanturing.dgwalker.features.data.repository.AuthRepositoryImpl
 import com.alanturing.dgwalker.features.domain.repository.AuthService
 import dagger.Module
 import dagger.Provides
@@ -10,11 +10,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AuthModel{
+object AuthModel {
 
     @Provides
     @Singleton
-    fun provideAuthService(): AuthService {
-        return LocalAuthServiceImpl()
+    fun provideAuthService(repository: AuthRepositoryImpl): AuthService {
+        return repository
     }
 }

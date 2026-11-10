@@ -1,5 +1,6 @@
 package com.alanturing.dgwalker.features.auth.ui
 
+import android.util.Patterns
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,38 +34,57 @@ class RegisterViewModel @Inject constructor(
     val uiState: StateFlow<RegisterUiState> = _uiState.asStateFlow()
 
     fun onUsernameChanged(value: String) {
-        _uiState.update { it.copy(username = value, errorMessage = null) }
+        _uiState.update { it.copy(username = value, errorMessageResId = null, errorMessage = null) }
     }
 
     fun onEmailChanged(value: String) {
-        _uiState.update { it.copy(email = value, errorMessage = null) }
+        _uiState.update { it.copy(email = value, errorMessageResId = null, errorMessage = null) }
     }
 
     fun onPasswordChanged(value: String) {
-        _uiState.update { it.copy(password = value, errorMessage = null) }
+        _uiState.update { it.copy(password = value, errorMessageResId = null, errorMessage = null) }
     }
 
     fun onConfirmPasswordChanged(value: String) {
-        _uiState.update { it.copy(confirmPassword = value, errorMessage = null) }
+        _uiState.update { it.copy(confirmPassword = value, errorMessageResId = null, errorMessage = null) }
     }
 
-    fun register() {
+    fun onRegister(
+        username: String = _uiState.value.username,
+        email: String = _uiState.value.email,
+        password: String = _uiState.value.password
+    ) {
         val state = _uiState.value
 
-        if (state.username.isBlank() || state.email.isBlank() || state.password.isBlank()) {
+        if (username.isBlank() || email.isBlank() || password.isBlank()) {
             _uiState.update { it.copy(errorMessageResId = R.string.fill_in_all_fields, errorMessage = null) }
             return
         }
 
-        if (state.password != state.confirmPassword) {
+        if (username.length < 3) {
+            _uiState.update { it.copy(errorMessageResId = R.string.username_too_short, errorMessage = null) }
+            return
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            _uiState.update { it.copy(errorMessageResId = R.string.invalid_email_format, errorMessage = null) }
+            return
+        }
+
+        if (password.length < 6) {
+            _uiState.update { it.copy(errorMessageResId = R.string.password_too_short, errorMessage = null) }
+            return
+        }
+
+        if (password != state.confirmPassword && state.confirmPassword.isNotEmpty()) {
             _uiState.update { it.copy(errorMessageResId = R.string.passwords_dont_match, errorMessage = null) }
             return
         }
 
         viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+            _uiState.update { it.copy(isLoading = true, errorMessageResId = null, errorMessage = null) }
 
-            val result = authService.register(state.username, state.email, state.password)
+            val result = authService.register(username, email, password)
 
             result.fold(
                 onSuccess = {
@@ -74,14 +94,16 @@ class RegisterViewModel @Inject constructor(
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            errorMessageResId = R.string.user_or_email_already_exists,
-                            errorMessage = null
+                            errorMessageResId = null,
+                            errorMessage = error.message ?: "Error al registrar usuario"
                         )
                     }
                 }
             )
         }
     }
+
+    fun register() = onRegister()
 
     fun resetSuccessState() {
         _uiState.update { it.copy(isSuccess = false) }

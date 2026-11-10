@@ -38,31 +38,32 @@ class LoginViewModel @Inject constructor(
         _uiState.update { it.copy(password = input, errorMessageResId = null, errorMessage = null) }
     }
 
-    fun login() {
-        val currentState = _uiState.value
-        if (currentState.userOrEmail.isBlank() || currentState.password.isBlank()) {
+    fun onLogin(identifier: String = _uiState.value.userOrEmail, pass: String = _uiState.value.password) {
+        if (identifier.isBlank() || pass.isBlank()) {
             _uiState.update { it.copy(errorMessageResId = R.string.fill_in_both_fields, errorMessage = null) }
             return
         }
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, errorMessageResId = null, errorMessage = null) }
-            val result = authService.login(currentState.userOrEmail, currentState.password)
+            val result = authService.login(identifier, pass)
             result.fold(
                 onSuccess = {
                     _uiState.update { it.copy(isLoading = false, isSuccess = true) }
                 },
-                onFailure = {
+                onFailure = { error ->
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            errorMessageResId = R.string.invalid_credentials,
-                            errorMessage = null
+                            errorMessageResId = null,
+                            errorMessage = error.message ?: "Credenciales incorrectas"
                         )
                     }
                 }
             )
         }
     }
+
+    fun login() = onLogin()
 
     fun resetSuccessState() {
         _uiState.update { it.copy(isSuccess = false) }

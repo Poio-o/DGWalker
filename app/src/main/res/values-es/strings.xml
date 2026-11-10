@@ -20,4 +20,7 @@
     <string name="user_or_email_already_exists">El usuario o correo electrónico ya está registrado</string>
     <string name="fill_in_both_fields">Por favor, introduce ambos campos</string>
     <string name="invalid_credentials">Credenciales no válidas</string>
+    <string name="username_too_short">El nombre de usuario debe tener al menos 3 caracteres</string>
+    <string name="password_too_short">La contraseña debe tener al menos 6 caracteres</string>
+    <string name="invalid_email_format">Formato de correo electrónico no válido</string>
 </resources>

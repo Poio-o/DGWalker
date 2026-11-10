@@ -19,4 +19,7 @@
     <string name="user_or_email_already_exists">User or email already exists</string>
     <string name="fill_in_both_fields">Please enter both fields</string>
     <string name="invalid_credentials">Invalid credentials</string>
+    <string name="username_too_short">Username must be at least 3 characters</string>
+    <string name="password_too_short">Password must be at least 6 characters</string>
+    <string name="invalid_email_format">Invalid email format</string>
 </resources>

@@ -20,7 +20,7 @@ class LocalAuthServiceImpl : AuthService {
             (it.email == userOrEmail || it.username == userOrEmail) && it.password == pass
         }
         return if (user != null) {
-            Result.success(User(user.uid, user.username, user.email, user.password))
+            Result.success(User(user.uid, user.username, user.email))
         } else {
             Result.failure(Exception("Invalid credentials"))
         }
@@ -45,7 +45,16 @@ class LocalAuthServiceImpl : AuthService {
                 password = password
             )
             users.add(newUser)
-            Result.success(User(newUser.uid, newUser.username, newUser.email, newUser.password))
+            Result.success(User(newUser.uid, newUser.username, newUser.email))
+        }
+    }
+
+    override suspend fun getProfile(): Result<User> {
+        val firstUser = users.firstOrNull()
+        return if (firstUser != null) {
+            Result.success(User(firstUser.uid, firstUser.username, firstUser.email))
+        } else {
+            Result.failure(Exception("No user profile found"))
         }
     }
 }

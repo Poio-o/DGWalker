@@ -1,8 +1,10 @@
 package com.alanturing.dgwalker.features.data.model
 
 data class User(
-    val uid: String,
+    val id: String,
     val username: String,
     val email: String,
-    val password: String
-)
+    val createdAt: String? = null
+) {
+    val uid: String get() = id
+}
