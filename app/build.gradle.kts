@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp")
-    //id("com.google.dagger.hilt.android")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -39,21 +39,31 @@ android {
 }
 
 dependencies {
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    testImplementation(libs.junit)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    implementation("com.google.dagger:hilt-android:2.60.1")
-    ksp("com.google.dagger:hilt-android-compiler:2.60.1")
-}
+        val navVersion =
+            "2.10.2"
+        implementation(platform(libs.androidx.compose.bom))
+        implementation(libs.androidx.activity.compose)
+        implementation(libs.androidx.compose.material3)
+        implementation("androidx.compose.material:material-icons-extended")
+        implementation(libs.androidx.compose.ui)
+        implementation(libs.androidx.compose.ui.graphics)
+        implementation(libs.androidx.compose.ui.tooling.preview)
+        implementation(libs.androidx.core.ktx)
+        implementation(libs.androidx.lifecycle.runtime.ktx)
+        implementation("androidx.navigation:navigation-compose:${navVersion}")
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+        implementation(libs.retrofit)
+        implementation(libs.retrofit.converter.gson)
+        implementation(libs.okhttp.logging)
+        implementation(libs.androidx.datastore.preferences)
+        testImplementation(libs.junit)
+        androidTestImplementation(platform(libs.androidx.compose.bom))
+        androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+        androidTestImplementation(libs.androidx.espresso.core)
+        androidTestImplementation(libs.androidx.junit)
+        debugImplementation(libs.androidx.compose.ui.test.manifest)
+        debugImplementation(libs.androidx.compose.ui.tooling)
+        implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+        implementation("com.google.dagger:hilt-android:2.60.1")
+        ksp("com.google.dagger:hilt-android-compiler:2.60.1")
+    }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DGWalker</string>
+    <string name="register_label">Registrarse</string>
+    <string name="insert_user_label">Introducir nombre de usuario</string>
+    <string name="insert_gmail_label">Introducir correo electrónico</string>
+    <string name="insert_password_label">Introducir contraseña</string>
+    <string name="confirm_insert_password_label">Confirmar contraseña</string>
+    <string name="user_or_gmail_label">usuario/correo electrónico</string>
+    <string name="login_button">Iniciar sesión</string>
+    <string name="return_to_login_button">Volver a inicio de sesión</string>
+    <string name="already_have_an_account">¿Ya tienes una cuenta? Iniciar sesión</string>
+    <string name="forgot_password_button">¿Olvidaste tu contraseña?</string>
+    <string name="forgot_password_instruction_label">Te enviaremos un correo electrónico con las instrucciones para recuperar tu cuenta.</string>
+    <string name="forgot_password_insert_user_or_gmail_label">Introducir usuario o correo electrónico</string>
+    <string name="send_forgot_password_email">Enviar correo</string>
+    <string name="fill_in_all_fields">Rellena todos los campos</string>
+    <string name="passwords_dont_match">Las contraseñas no coinciden</string>
+    <string name="error_registering_user">Error al registrar al usuario</string>
+    <string name="user_or_email_already_exists">El usuario o correo electrónico ya está registrado</string>
+    <string name="fill_in_both_fields">Por favor, introduce ambos campos</string>
+    <string name="invalid_credentials">Credenciales no válidas</string>
+    <string name="username_too_short">El nombre de usuario debe tener al menos 3 caracteres</string>
+    <string name="password_too_short">La contraseña debe tener al menos 6 caracteres</string>
+    <string name="invalid_email_format">Formato de correo electrónico no válido</string>
+</resources>

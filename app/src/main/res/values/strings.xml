@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">DGWalker</string>
+    <string name="register_label">Register</string>
+    <string name="insert_user_label">Enter username</string>
+    <string name="insert_gmail_label">Enter gmail</string>
+    <string name="insert_password_label">Enter password</string>
+    <string name="confirm_insert_password_label">Confirm password</string>
+    <string name="user_or_gmail_label">Enter email/username</string>
+    <string name="login_button">Log in</string>
+    <string name="return_to_login_button">Return to login</string>
+    <string name="already_have_an_account">Already have an account? Log in</string>
+    <string name="forgot_password_button">Forgot password?</string>
+    <string name="forgot_password_instruction_label">We’ll send you an email with the instructions to recover your account.</string>
+    <string name="forgot_password_insert_user_or_gmail_label">Enter email/username</string>
+    <string name="send_forgot_password_email">Send email</string>
+    <string name="fill_in_all_fields">Fill in all fields</string>
+    <string name="passwords_dont_match">Passwords don’t match</string>
+    <string name="error_registering_user">Error registering user</string>
+    <string name="user_or_email_already_exists">User or email already exists</string>
+    <string name="fill_in_both_fields">Please enter both fields</string>
+    <string name="invalid_credentials">Invalid credentials</string>
+    <string name="username_too_short">Username must be at least 3 characters</string>
+    <string name="password_too_short">Password must be at least 6 characters</string>
+    <string name="invalid_email_format">Invalid email format</string>
 </resources>

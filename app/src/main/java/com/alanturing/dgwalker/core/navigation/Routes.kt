@@ -5,33 +5,40 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class Routes(val route: String) {
 
-    object Home : Routes("homeScreen")
-    object Settings : Routes("settingsScreen")
-    object Digimon : Routes("digimonScreen")
-    object Items : Routes("itemsScreen")
-    object Profile : Routes("profileScreen")
-    object Login : Routes("loginScreen")
-    object Register : Routes("registerScreen")
-    object ForgotPassword : Routes("forgotPasswordScreen")
-    object FriendList : Routes("friendListScreen")
-
-    object FriendAdd : Routes( "friendAddScreen")
-
-    object ExchangePrepare : Routes("exchangeScreen")
-    object ExchangeConnection : Routes("exchangeConnectionScreen")
-    object ExchangeConfirmation : Routes("exchangeConfirmationScreen")
-    object ExchangeResult : Routes("exchangeResultScreen")
-    object ExchangeQR : Routes("exchangeQrScreen")
-
-    object ChatDetail : Routes("chatDetailScreen/{chatId}") {
-        fun createRoute(chatId: Int) = "chatDetailScreen/$chatId"
-    }
-
-    object FriendDetail : Routes("friendDetailScreen/{friendId}") {
-        fun createRoute(friendId: Int) = "friendDetailScreen/$friendId"
-    }
-
-    object DigimonDetail : Routes("digimonDetailScreen/{digimonId}") {
-        fun createRoute(digimonId: Int) = "digimonDetailScreen/$digimonId"
-    }
+    @Serializable
+    object Home : Routes("HomeScreen")
+    @Serializable
+    object Settings : Routes("SettingsScreen")
+    @Serializable
+    object Digimon : Routes("DigimonScreen")
+    @Serializable
+    object Items : Routes("ItemsScreen")
+    @Serializable
+    object Profile : Routes("ProfileScreen")
+    @Serializable
+    object Login : Routes("LoginScreen")
+    @Serializable
+    object Register : Routes("RegisterScreen")
+    @Serializable
+    object ForgotPassword : Routes("ForgotPasswordScreen")
+    @Serializable
+    object FriendList : Routes("FriendListScreen")
+    @Serializable
+    object FriendAdd : Routes( "FriendAddScreen")
+    @Serializable
+    object ExchangePrepare : Routes("ExchangeScreen")
+    @Serializable
+    object ExchangeConnection : Routes("ExchangeConnectionScreen")
+    @Serializable
+    object ExchangeConfirmation : Routes("ExchangeConfirmationScreen")
+    @Serializable
+    object ExchangeResult : Routes("ExchangeResultScreen")
+    @Serializable
+    object ExchangeQr : Routes("ExchangeQrScreen")
+    @Serializable
+    class ChatDetail(chatUID:String) : Routes("ChatDetailScreen/${chatUID}")
+    @Serializable
+    class FriendDetail(friendUID:String) : Routes("FriendDetailScreen/${friendUID}")
+    @Serializable
+    class DigimonDetail(digimonUID:String) : Routes("DigimonDetailScreen/${digimonUID}")
 }
