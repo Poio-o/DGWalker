@@ -63,7 +63,13 @@ dependencies {
         androidTestImplementation(libs.androidx.junit)
         debugImplementation(libs.androidx.compose.ui.test.manifest)
         debugImplementation(libs.androidx.compose.ui.tooling)
+
+    //Hilt
         implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
         implementation("com.google.dagger:hilt-android:2.60.1")
         ksp("com.google.dagger:hilt-android-compiler:2.60.1")
+
+    //Room
+        implementation("androidx.room3:room3-runtime:3.0.3")
+        ksp("androidx.room3:room3-compiler:3.0.3")
     }
