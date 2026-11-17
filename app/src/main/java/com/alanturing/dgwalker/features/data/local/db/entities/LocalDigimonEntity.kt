@@ -18,7 +18,7 @@ data class LocalDigimonEntity(
     val level: Int,
     val currentExp: Int,
     val friendship: Int,        // 0 (no amigo) a 100 (amigo)
-    val hunger: Int,          // 0 (hambre) a 100 (saciado)
+    val hunger: Int,          // 0 (saciado) a 100 (hambre)
     val fatigue: Int,           // 0 (descansado) a 100 (cansado)
 
     // Base
