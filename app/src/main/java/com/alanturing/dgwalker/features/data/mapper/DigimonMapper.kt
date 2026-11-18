@@ -4,6 +4,8 @@ import com.alanturing.dgwalker.features.data.local.db.entities.LocalDigimonEntit
 import com.alanturing.dgwalker.features.data.local.db.entities.LocalItemEntity
 import com.alanturing.dgwalker.features.domain.model.Digimon
 import com.alanturing.dgwalker.features.domain.model.InventoryItem
+import com.alanturing.dgwalker.features.data.remote.dto.DigimonRemoteDto
+import com.alanturing.dgwalker.features.data.remote.dto.InventoryRemoteDto
 
 fun LocalDigimonEntity.toDomain(): Digimon = Digimon(
     id = digimonId,
@@ -110,3 +112,60 @@ fun InventoryItem.toEntity(): LocalItemEntity = LocalItemEntity(
     friendshipGain = friendshipGain,
     assignedDigimonId = assignedDigimonId
 )
+
+// DTO
+
+fun DigimonRemoteDto.toEntity(slot: Int): LocalDigimonEntity =
+    LocalDigimonEntity(
+        digimonId = digimonId,
+        slotNumber = slot,
+        nickname = nickname,
+        speciesName = species?.name ?: "Unknown Digimon",
+        generation = species?.generation ?: "Rookie",
+        attribute = species?.attribute ?: "Free",
+        type = species?.type ?: "Unknown",
+        spriteUrl = species?.spriteUrl ?: "",
+        level = level,
+        currentExp = currentExp,
+        friendship = friendship,
+        hunger = hunger,
+        fatigue = fatigue,
+        baseHp = baseHp,
+        baseSp = baseSp,
+        baseAtk = baseAtk,
+        baseDef = baseDef,
+        baseInt = baseInt,
+        baseSpi = baseSpi,
+        baseSpd = baseSpd,
+        npHp = npHp,
+        npSp = npSp,
+        npAtk = npAtk,
+        npDef = npDef,
+        npInt = npInt,
+        npSpi = npSpi,
+        npSpd = npSpd,
+        bonusHp = bonusHp,
+        bonusSp = bonusSp,
+        bonusAtk = bonusAtk,
+        bonusDef = bonusDef,
+        bonusInt = bonusInt,
+        bonusSpi = bonusSpi,
+        bonusSpd = bonusSpd,
+        stepsWalked = 0,
+        expGained = 0,
+        friendshipGained = 0,
+        isWalking = isWalking
+    )
+
+fun InventoryRemoteDto.toEntity(): LocalItemEntity =
+    LocalItemEntity(
+        itemId = itemId,
+        name = itemDetail?.name ?: itemId,
+        category = itemDetail?.category ?: "FOOD",
+        quantity = quantity,
+        iconUrl = itemDetail?.iconUrl ?: "",
+        description = itemDetail?.description ?: "",
+        hungerRestore = itemDetail?.hungerRestored ?: 0,
+        friendshipGain = itemDetail?.friendshipGain ?: 0,
+        assignedDigimonId = assignedDigimonId
+    )

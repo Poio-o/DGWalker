@@ -3,19 +3,21 @@ package com.alanturing.dgwalker.features.data.repository
 import com.alanturing.dgwalker.features.data.local.db.dao.ItemDao
 import com.alanturing.dgwalker.features.data.mapper.toDomain
 import com.alanturing.dgwalker.features.data.mapper.toEntity
+import com.alanturing.dgwalker.features.data.remote.InventoryApiService
 import com.alanturing.dgwalker.features.domain.model.InventoryItem
 import com.alanturing.dgwalker.features.domain.repository.InventoryRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class InventoryRepositoryImpl @Inject constructor(
-    private val itemDao: ItemDao
+    private val itemDao: ItemDao,
+    private val apiService: InventoryApiService
 ) : InventoryRepository {
+
+    //traer datos
 
     override fun getAllAvailableItems(): Flow<List<InventoryItem>> =
         itemDao.getAllAvailableItems().map { list -> list.map { it.toDomain() } }
@@ -25,6 +27,8 @@ class InventoryRepositoryImpl @Inject constructor(
 
     override fun getItemsAssignedToDigimon(digimonId: String): Flow<List<InventoryItem>> =
         itemDao.getItemsAssignedToDigimon(digimonId).map { list -> list.map { it.toDomain() } }
+
+    //operaciones locales
 
     override suspend fun addItem(item: InventoryItem): Long =
         itemDao.insertItem(item.toEntity())
@@ -46,4 +50,21 @@ class InventoryRepositoryImpl @Inject constructor(
 
     override suspend fun deleteItem(itemId: String): Boolean =
         itemDao.deleteItemById(itemId) > 0
+
+    //sincronizacion
+
+    override suspend fun syncInventoryFromRemote(): Result<Unit> = runCatching {
+        val response = apiService.getInventory()
+        check(response.isSuccessful) { "Error al sincronizar inventario: ${response.code()}" }
+
+        val itemEntities = response.body()
+            .orEmpty()
+            .map { it.toEntity() }
+
+        if (itemEntities.isNotEmpty()) {
+            itemDao.insertItems(itemEntities)
+        }
+    }
+
+
 }

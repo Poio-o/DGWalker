@@ -2,6 +2,8 @@ package com.alanturing.dgwalker.features.di
 
 import com.alanturing.dgwalker.features.data.remote.AuthApiService
 import com.alanturing.dgwalker.features.data.remote.AuthInterceptor
+import com.alanturing.dgwalker.features.data.remote.DigimonApiService
+import com.alanturing.dgwalker.features.data.remote.InventoryApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +19,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val BASE_URL = "http://localhost:3000/api/v1/"
+    private const val BASE_URL = "https://dg-backend-tau.vercel.app/api/v1/"
 
     @Provides
     @Singleton
@@ -62,5 +64,17 @@ object NetworkModule {
     @Singleton
     fun provideAuthApiService(retrofit: Retrofit): AuthApiService {
         return retrofit.create(AuthApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDigimonApiService(retrofit: Retrofit): DigimonApiService {
+        return retrofit.create(DigimonApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideInventoryApiService(retrofit: Retrofit): InventoryApiService {
+        return retrofit.create(InventoryApiService::class.java)
     }
 }
