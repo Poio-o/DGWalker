@@ -1,5 +1,6 @@
 package com.alanturing.dgwalker.core.ui.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -11,11 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.CompareArrows
-import androidx.compose.material.icons.outlined.Backpack
-import androidx.compose.material.icons.outlined.GridView
-import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -23,20 +19,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.alanturing.dgwalker.R
 import com.alanturing.dgwalker.core.navigation.Routes
 import com.alanturing.dgwalker.core.ui.theme.BottomNavBackground
 import com.alanturing.dgwalker.core.ui.theme.DGWalkerTheme
 import com.alanturing.dgwalker.core.ui.theme.ElectricCyan
 import com.alanturing.dgwalker.core.ui.theme.InputPlaceholder
 
-enum class BottomNavItem(val route: String, val icon: ImageVector, val contentDescription: String) {
-    HOME(Routes.Home.route, Icons.Outlined.Home, "Home"),
-    DIGIMON(Routes.Digimon.route, Icons.Outlined.GridView, "Digimon"),
-    ITEMS(Routes.Items.route, Icons.Outlined.Backpack, "Items"),
-    EXCHANGE(Routes.ExchangePrepare.route, Icons.AutoMirrored.Outlined.CompareArrows, "Exchange")
+enum class BottomNavItem(val route: String, @param:DrawableRes val iconRes: Int, val contentDescription: String) {
+    HOME(Routes.Home.route, R.drawable.home_icon, "Home"),
+    DIGIMON(Routes.Digimon.route, R.drawable.grid_icon, "Digimon"),
+    ITEMS(Routes.Items.route, R.drawable.backpack_icon, "Items"),
+    EXCHANGE(Routes.ExchangePrepare.route, R.drawable.trading_icon, "Exchange")
 }
 
 @Composable
@@ -80,7 +77,7 @@ fun BottomNavBar(
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        imageVector = item.icon,
+                        painter = painterResource(id = item.iconRes),
                         contentDescription = item.contentDescription,
                         tint = iconTint,
                         modifier = Modifier.size(28.dp)
