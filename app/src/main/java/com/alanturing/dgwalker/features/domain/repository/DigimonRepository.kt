@@ -18,6 +18,7 @@ interface DigimonRepository {
     suspend fun addSteps(id: String, steps: Int): Boolean
     suspend fun addExp(id: String, exp: Int): Boolean
     suspend fun updateLevel(id: String, level: Int): Boolean
+    suspend fun setWalkingDigimon(id: String): Boolean
     suspend fun deleteDigimon(id: String): Boolean
 
     //sincronizacion

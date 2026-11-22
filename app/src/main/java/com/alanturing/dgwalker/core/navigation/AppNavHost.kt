@@ -5,15 +5,18 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.alanturing.dgwalker.core.ui.components.BottomNavBar
 import com.alanturing.dgwalker.core.ui.components.BottomNavItem
 import com.alanturing.dgwalker.features.auth.ui.ForgotPasswordScreen
 import com.alanturing.dgwalker.features.auth.ui.LoginScreen
 import com.alanturing.dgwalker.features.auth.ui.RegisterScreen
+import com.alanturing.dgwalker.features.digimon.ui.DigimonDetailScreen
 import com.alanturing.dgwalker.features.digimon.ui.DigimonScreen
 import com.alanturing.dgwalker.features.exchange.ui.ExchangeConfirmationScreen
 import com.alanturing.dgwalker.features.exchange.ui.ExchangeConnectionScreen
@@ -141,8 +144,20 @@ fun AppNavHost(modifier: Modifier = Modifier) {
             composable(Routes.Digimon.route) {
                 DigimonScreen(
                     onNavigateToHome = { navController.navigate(Routes.Home.route) },
-                    onNavigateToItems = { navController.navigate(Routes.Items.route) },
-                    onNavigateToExchange = { navController.navigate(Routes.ExchangePrepare.route) }
+                    onNavigateToDetail = { digimonId ->
+                        navController.navigate("DigimonDetailScreen/$digimonId")
+                    }
+                )
+            }
+
+            composable(
+                route = "DigimonDetailScreen/{digimonId}",
+                arguments = listOf(navArgument("digimonId") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val digimonId = backStackEntry.arguments?.getString("digimonId") ?: ""
+                DigimonDetailScreen(
+                    digimonId = digimonId,
+                    onNavigateBack = { navController.popBackStack() }
                 )
             }
 

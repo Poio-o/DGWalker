@@ -1,5 +1,71 @@
 # Changelog
 
+## v0.2.7 - Eventos de Interacción con Corrutinas [SUB-06-3]
+
+### Añadido
+- Consulta SQL transaccional en `DigimonDao` (`setWalkingDigimon`) para alternar el Digimon activo de paseo (`isWalking`)
+- Método `setWalkingDigimon` en `DigimonRepository` y `HomeViewModel` ejecutado con corrutinas de Kotlin (`viewModelScope.launch`)
+- Sincronización automática remota en `HomeViewModel` (`init { syncFromRemote() }`) para recibir y reflejar el equipo asignado desde la plataforma web
+- Conexión completa del Switch de activación en `DigimonDetailScreen` para establecer la criatura activa en la pantalla principal (`HomeScreen`)
+- Cadenas internacionalizadas en inglés y español para las acciones de activación y estado
+
+### Archivos modificados
+- `app/src/main/java/com/alanturing/dgwalker/features/data/local/db/dao/DigimonDao.kt` - Añadida consulta `setWalkingDigimon`
+- `app/src/main/java/com/alanturing/dgwalker/features/domain/repository/DigimonRepository.kt` - Añadido método en la interfaz
+- `app/src/main/java/com/alanturing/dgwalker/features/data/repository/DigimonRepositoryImpl.kt` - Implementación del método en repositorio
+- `app/src/main/java/com/alanturing/dgwalker/features/home/ui/HomeViewModel.kt` - Añadida sincronización inicial y función `setWalkingDigimon`
+- `app/src/main/java/com/alanturing/dgwalker/features/digimon/ui/DigimonDetailScreen.kt` - Conexión de Switch de activación y actualización de textos
+- `app/src/main/res/values/strings.xml` y `res/values-es/strings.xml` - Nuevos recursos de texto bilingües
+- `app/src/test/java/com/alanturing/dgwalker/features/home/ui/HomeViewModelTest.kt` - Actualización del FakeRepository con soporte para tests de corrutinas
+- `CHANGELOG.md` - Registro de cambios del proyecto Android
+
+---
+
+## v0.2.6 - Componentes Material Design 3, Pre-carga de Datos y Pantallas Reactivas [SUB-06-2]
+
+### Añadido
+- Integración de la librería **Coil** (`io.coil-kt:coil-compose:2.7.0`) para la carga asíncrona de imágenes y sprites desde URLs remotas mediante `AsyncImage`
+- Sembrado inicial de datos (*Database Seeding*) en `DatabaseModule` mediante `RoomDatabase.Callback()`, poblando Room en la primera creación con 4 Digimons iniciales (*Tsunemon*, *Gekkomon*, *Betamon*, *BeelStarmon*) y objetos de comida (*Manzana Digimon*, *Carne Digimon*)
+- Componente de UI `StatusIndicator` con `LinearProgressIndicator` de Material Design 3 y esquinas redondeadas para barras de hambre y amistad
+- Componente modal `FeedBottomSheet` (`ModalBottomSheet`) para listar y seleccionar ítems del inventario al alimentar a una criatura
+- Rediseño de `HomeScreen` siguiendo la interfaz deseada: Digimon activo en la plataforma circular azul, `StatusIndicator`, tarjeta DigiSteps y navegación con `BottomNavBar`
+- Rediseño de `DigimonScreen` (Grid 2x2 de la colección de criaturas) con tarjetas estilizadas de bordes punteados
+- Implementación de `DigimonDetailScreen` con carrusel de navegación (`arrow_back_ios_icon`, `arrow_forward_ios_icon`), edición de apodo, switch de activación y botón de alimentar
+
+### Archivos creados
+- `app/src/main/java/com/alanturing/dgwalker/core/ui/components/StatusIndicator.kt` - Componente de indicador de estado
+- `app/src/main/java/com/alanturing/dgwalker/features/digimon/ui/components/FeedBottomSheet.kt` - Hoja modal para alimentar criaturas
+
+### Archivos modificados
+- `app/build.gradle.kts` - Añadida dependencia de Coil Compose (`coil-compose:2.7.0`)
+- `app/src/main/java/com/alanturing/dgwalker/features/di/DatabaseModule.kt` - Añadido callback de sembrado inicial de Room
+- `app/src/main/java/com/alanturing/dgwalker/features/home/ui/HomeScreen.kt` - Rediseño con Digimon activo, plataforma azul y DigiSteps
+- `app/src/main/java/com/alanturing/dgwalker/features/digimon/ui/DigimonScreen.kt` - Rediseño del grid 2x2 de la colección
+- `app/src/main/java/com/alanturing/dgwalker/features/digimon/ui/DigimonDetailScreen.kt` - Pantalla de detalle con carrusel, renombrado y botón de alimentar
+- `app/src/main/java/com/alanturing/dgwalker/core/navigation/AppNavHost.kt` - Configuración de rutas y argumentos para el detalle de Digimon
+- `CHANGELOG.md` - Registro de cambios del proyecto Android
+
+---
+
+## v0.2.5 - HomeViewModel y Estado Reactivo del Equipo [SUB-06-1]
+
+### Añadido
+- `HomeUiState` para encapsular reactivamente el estado de la pantalla principal (equipo de paseo, inventario disponible, mensajes e indicadores de carga y error)
+- `HomeViewModel` anotado con `@HiltViewModel`, inyectando `DigimonRepository` e `InventoryRepository`
+- Exposición de `StateFlow<HomeUiState>` reactivo combinando las fuentes de datos de Room (`getWalkingTeam()` y `getAllAvailableItems()`)
+- Métodos de negocio en `HomeViewModel`: `feedDigimon` (actualización atómica de hambre y amistad con consumo de ítem), `updateNickname` (edición de apodo), `deleteDigimon` (baja de criaturas del equipo) y `syncFromRemote`
+- Pruebas unitarias completas en `HomeViewModelTest.kt` utilizando `runTest`, `StandardTestDispatcher` y repositorios mock/fake (5/5 tests pasados)
+
+### Archivos creados
+- `app/src/test/java/com/alanturing/dgwalker/features/home/ui/HomeViewModelTest.kt` - Suite de pruebas unitarias para `HomeViewModel`
+
+### Archivos modificados
+- `app/src/main/java/com/alanturing/dgwalker/features/home/ui/HomeViewModel.kt` - Implementación de `HomeViewModel` y `HomeUiState`
+- `app/build.gradle.kts` - Inclusión de dependencia `kotlinx-coroutines-test` para pruebas unitarias
+- `CHANGELOG.md` - Registro de cambios del proyecto Android
+
+---
+
 ## v0.2.4 - Autenticación Remota (Retrofit + JWT + Hilt + Compose) [SUB-02-2&3]
 
 ### Añadido

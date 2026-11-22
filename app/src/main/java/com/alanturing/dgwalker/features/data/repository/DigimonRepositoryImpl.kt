@@ -50,6 +50,9 @@ class DigimonRepositoryImpl @Inject constructor(
     override suspend fun updateLevel(id: String, level: Int): Boolean =
         digimonDao.updateLevel(id, level) > 0
 
+    override suspend fun setWalkingDigimon(id: String): Boolean =
+        digimonDao.setWalkingDigimon(id) > 0
+
     override suspend fun deleteDigimon(id: String): Boolean =
         digimonDao.deleteDigimonById(id) > 0
 

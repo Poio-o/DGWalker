@@ -64,6 +64,9 @@ interface DigimonDao {
     @Query("UPDATE walking_team SET level = :newLevel WHERE digimonId = :digimonId")
     suspend fun updateLevel(digimonId: String, newLevel: Int): Int
 
+    @Query("UPDATE walking_team SET isWalking = (digimonId = :digimonId)")
+    suspend fun setWalkingDigimon(digimonId: String): Int
+
     // DELETE
     @Delete
     suspend fun deleteDigimon(digimon: LocalDigimonEntity): Int

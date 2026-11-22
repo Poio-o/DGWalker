@@ -1,26 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Aplicación -->
     <string name="app_name">DGWalker</string>
+
+    <!-- Pantalla de Inicio de Sesión -->
+    <string name="login_button">Iniciar sesión</string>
+    <string name="user_or_gmail_label">usuario/correo electrónico</string>
+    <string name="forgot_password_button">¿Olvidaste tu contraseña?</string>
+    <string name="return_to_login_button">Volver a inicio de sesión</string>
+    <string name="already_have_an_account">¿Ya tienes una cuenta? Iniciar sesión</string>
+
+    <!-- Pantalla de Registro -->
     <string name="register_label">Registrarse</string>
     <string name="insert_user_label">Introducir nombre de usuario</string>
     <string name="insert_gmail_label">Introducir correo electrónico</string>
     <string name="insert_password_label">Introducir contraseña</string>
     <string name="confirm_insert_password_label">Confirmar contraseña</string>
-    <string name="user_or_gmail_label">usuario/correo electrónico</string>
-    <string name="login_button">Iniciar sesión</string>
-    <string name="return_to_login_button">Volver a inicio de sesión</string>
-    <string name="already_have_an_account">¿Ya tienes una cuenta? Iniciar sesión</string>
-    <string name="forgot_password_button">¿Olvidaste tu contraseña?</string>
+
+    <!-- Pantalla de Recuperación de Contraseña -->
     <string name="forgot_password_instruction_label">Te enviaremos un correo electrónico con las instrucciones para recuperar tu cuenta.</string>
     <string name="forgot_password_insert_user_or_gmail_label">Introducir usuario o correo electrónico</string>
     <string name="send_forgot_password_email">Enviar correo</string>
+
+    <!-- Validación y Errores de Autenticación -->
     <string name="fill_in_all_fields">Rellena todos los campos</string>
-    <string name="passwords_dont_match">Las contraseñas no coinciden</string>
-    <string name="error_registering_user">Error al registrar al usuario</string>
-    <string name="user_or_email_already_exists">El usuario o correo electrónico ya está registrado</string>
     <string name="fill_in_both_fields">Por favor, introduce ambos campos</string>
+    <string name="passwords_dont_match">Las contraseñas no coinciden</string>
     <string name="invalid_credentials">Credenciales no válidas</string>
+    <string name="user_or_email_already_exists">El usuario o correo electrónico ya está registrado</string>
+    <string name="error_registering_user">Error al registrar al usuario</string>
     <string name="username_too_short">El nombre de usuario debe tener al menos 3 caracteres</string>
     <string name="password_too_short">La contraseña debe tener al menos 6 caracteres</string>
     <string name="invalid_email_format">Formato de correo electrónico no válido</string>
+
+    <!-- Navegación y UI Base -->
+    <string name="nav_home">Inicio</string>
+    <string name="nav_digimon">Digimon</string>
+    <string name="nav_items">Objetos</string>
+    <string name="nav_exchange">Intercambio</string>
+    <string name="profile">Perfil</string>
+    <string name="back">Atrás</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+
+    <!-- Pantalla Principal -->
+    <string name="no_digimon_in_team">No hay Digimon en el equipo</string>
+    <string name="digisteps">DigiSteps</string>
+
+    <!-- Colección y Detalle de Digimon -->
+    <string name="no_digimon_in_collection">No tienes Digimon en la colección</string>
+    <string name="activate_on_home">Activar en Pantalla Principal</string>
+    <string name="feed_digimon">Alimentar Digimon</string>
+    <string name="edit_nickname">Editar Apodo</string>
+    <string name="enter_new_nickname">Introduce el nuevo apodo para %1$s:</string>
+    <string name="details_and_status">Detalles y Estado</string>
+    <string name="species_format">Especie: %1$s</string>
+    <string name="level_format">Nivel: %1$d</string>
+    <string name="generation_format">Generación: %1$s</string>
+    <string name="type_format">Tipo: %1$s</string>
+    <string name="hunger_label">Hambre</string>
+    <string name="friendship_label">Amistad</string>
+
+    <!-- Feed Bottom Sheet -->
+    <string name="no_food_available">No tienes objetos de comida disponibles</string>
+    <string name="hunger_restore_format">Hambre: +%1$d</string>
+    <string name="friendship_gain_format">Amistad: +%1$d</string>
+
+    <!-- Acciones de Digimon -->
+    <string name="retire_from_team">Retirar del equipo</string>
+    <string name="confirm_retire_title">Retirar Digimon</string>
+    <string name="confirm_retire_message">¿Estás seguro de que deseas retirar a %1$s del equipo?</string>
+    <string name="confirm">Confirmar</string>
+
+    <!-- Pantallas Secundarias -->
+    <string name="user_profile_title">Perfil de Usuario</string>
+    <string name="inventory_title">Inventario de Objetos</string>
+    <string name="settings_title">Configuración / Ajustes</string>
+    <string name="exchange_prepare_title">Preparar Intercambio</string>
+    <string name="connect_device">Conectar Dispositivo</string>
+    <string name="friend_list">Lista de Amigos</string>
 </resources>
