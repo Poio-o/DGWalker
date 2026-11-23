@@ -10,12 +10,14 @@
     <string name="return_to_login_button">Volver a inicio de sesión</string>
     <string name="already_have_an_account">¿Ya tienes una cuenta? Iniciar sesión</string>
 
+
     <!-- Pantalla de Registro -->
     <string name="register_label">Registrarse</string>
     <string name="insert_user_label">Introducir nombre de usuario</string>
     <string name="insert_gmail_label">Introducir correo electrónico</string>
     <string name="insert_password_label">Introducir contraseña</string>
     <string name="confirm_insert_password_label">Confirmar contraseña</string>
+
 
     <!-- Pantalla de Recuperación de Contraseña -->
     <string name="forgot_password_instruction_label">Te enviaremos un correo electrónico con las instrucciones para recuperar tu cuenta.</string>

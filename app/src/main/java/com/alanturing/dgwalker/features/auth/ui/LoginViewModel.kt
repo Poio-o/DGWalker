@@ -55,7 +55,7 @@ class LoginViewModel @Inject constructor(
                         it.copy(
                             isLoading = false,
                             errorMessageResId = null,
-                            errorMessage = error.message ?: "Credenciales incorrectas"
+                            errorMessage = error.message ?: (R.string.invalid_credentials).toString()
                         )
                     }
                 }

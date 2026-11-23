@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.navigation.navigation
 import com.alanturing.dgwalker.core.ui.components.BottomNavBar
 import com.alanturing.dgwalker.core.ui.components.BottomNavItem
 import com.alanturing.dgwalker.features.auth.ui.ForgotPasswordScreen
@@ -79,137 +80,146 @@ fun AppNavHost(modifier: Modifier = Modifier) {
             startDestination = Routes.Login.route,
             modifier = Modifier.padding(innerPadding)
         ) {
+            //navigation<Routes.AuthFeature>(
+            //    startDestination = Routes.Login
+            //){
+                composable(Routes.Login.route) {
+                    LoginScreen(
+                        onNavigateToHome = { navController.navigate(Routes.Home.route) //{
+                           // popUpTo<Routes.Login>{
+                            //    inclusive = true
+                            //    saveState = true
+                           // }
+                        //}
+                },
+                        onNavigateToRegister = { navController.navigate(Routes.Register.route) },
+                        onNavigateToForgotPassword = { navController.navigate(Routes.ForgotPassword.route) }
+                    )
+                }
 
-            composable(Routes.Login.route) {
-                LoginScreen(
-                    onNavigateToHome = { navController.navigate(Routes.Home.route) },
-                    onNavigateToRegister = { navController.navigate(Routes.Register.route) },
-                    onNavigateToForgotPassword = { navController.navigate(Routes.ForgotPassword.route) }
-                )
-            }
+                composable(Routes.Register.route) {
+                    RegisterScreen(
+                        onNavigateToHome = { navController.navigate(Routes.Home.route) },
+                        onNagivateToLogin = { navController.navigate(Routes.Login.route) }
+                    )
+                }
 
-            composable(Routes.Register.route) {
-                RegisterScreen(
-                    onNavigateToHome = { navController.navigate(Routes.Home.route) },
-                    onNagivateToLogin = { navController.navigate(Routes.Login.route) }
-                )
-            }
+                composable(Routes.ForgotPassword.route) {
+                    ForgotPasswordScreen(
+                        onNavigateToLogin = { navController.navigate(Routes.Login.route) }
+                    )
+                }
 
-            composable(Routes.ForgotPassword.route) {
-                ForgotPasswordScreen(
-                    onNavigateToLogin = { navController.navigate(Routes.Login.route) }
-                )
-            }
+                composable(Routes.Home.route) {
+                    HomeScreen(
+                        onNavigateToProfile = { navController.navigate(Routes.Profile.route) },
+                        onNavigateToDigimon = { navController.navigate(Routes.Digimon.route) },
+                        onNavigateToItems = { navController.navigate(Routes.Items.route) },
+                        onNavigateToExchange = { navController.navigate(Routes.ExchangePrepare.route) }
+                    )
+                }
 
-            composable(Routes.Home.route) {
-                HomeScreen(
-                    onNavigateToProfile = { navController.navigate(Routes.Profile.route) },
-                    onNavigateToDigimon = { navController.navigate(Routes.Digimon.route) },
-                    onNavigateToItems = { navController.navigate(Routes.Items.route) },
-                    onNavigateToExchange = { navController.navigate(Routes.ExchangePrepare.route) }
-                )
-            }
+                composable(Routes.Profile.route) {
+                    ProfileScreen(
+                        onNavigateToHome = { navController.navigate(Routes.Home.route) },
+                        onNavigateToDigimon = { navController.navigate(Routes.Digimon.route) },
+                        onNavigateToItems = { navController.navigate(Routes.Items.route) },
+                        onNavigateToExchange = { navController.navigate(Routes.ExchangePrepare.route) },
+                        onNavigateToFriendList = { navController.navigate(Routes.FriendList.route) },
+                        onNavigateToSettings = { navController.navigate(Routes.Settings.route) }
+                    )
+                }
 
-            composable(Routes.Profile.route) {
-                ProfileScreen(
-                    onNavigateToHome = { navController.navigate(Routes.Home.route) },
-                    onNavigateToDigimon = { navController.navigate(Routes.Digimon.route) },
-                    onNavigateToItems = { navController.navigate(Routes.Items.route) },
-                    onNavigateToExchange = { navController.navigate(Routes.ExchangePrepare.route) },
-                    onNavigateToFriendList = { navController.navigate(Routes.FriendList.route) },
-                    onNavigateToSettings = { navController.navigate(Routes.Settings.route) }
-                )
-            }
+                composable(Routes.FriendList.route) {
+                    FriendListScreen(
+                        onNavigateToHome = { navController.navigate(Routes.Home.route) },
+                        onNavigateToDigimon = { navController.navigate(Routes.Digimon.route) },
+                        onNavigateToItems = { navController.navigate(Routes.Items.route) },
+                        onNavigateToExchange = { navController.navigate(Routes.ExchangePrepare.route) },
+                        onNavigateToFriendAdd = { navController.navigate(Routes.FriendAdd.route) }
+                    )
+                }
 
-            composable(Routes.FriendList.route) {
-                FriendListScreen(
-                    onNavigateToHome = { navController.navigate(Routes.Home.route) },
-                    onNavigateToDigimon = { navController.navigate(Routes.Digimon.route) },
-                    onNavigateToItems = { navController.navigate(Routes.Items.route) },
-                    onNavigateToExchange = { navController.navigate(Routes.ExchangePrepare.route) },
-                    onNavigateToFriendAdd = { navController.navigate(Routes.FriendAdd.route) }
-                )
-            }
+                composable(Routes.FriendAdd.route) {
+                    FriendAddScreen(
+                        onNavigateToHome = { navController.navigate(Routes.Home.route) },
+                        onNavigateToDigimon = { navController.navigate(Routes.Digimon.route) },
+                        onNavigateToItems = { navController.navigate(Routes.Items.route) },
+                        onNavigateToExchange = { navController.navigate(Routes.ExchangePrepare.route) },
+                        onNavigateToFriendList = { navController.navigate(Routes.FriendList.route) }
+                    )
+                }
 
-            composable(Routes.FriendAdd.route) {
-                FriendAddScreen(
-                    onNavigateToHome = { navController.navigate(Routes.Home.route) },
-                    onNavigateToDigimon = { navController.navigate(Routes.Digimon.route) },
-                    onNavigateToItems = { navController.navigate(Routes.Items.route) },
-                    onNavigateToExchange = { navController.navigate(Routes.ExchangePrepare.route) },
-                    onNavigateToFriendList = { navController.navigate(Routes.FriendList.route) }
-                )
-            }
+                composable(Routes.Digimon.route) {
+                    DigimonScreen(
+                        onNavigateToHome = { navController.navigate(Routes.Home.route) },
+                        onNavigateToDetail = { digimonId ->
+                            navController.navigate("DigimonDetailScreen/$digimonId")
+                        }
+                    )
+                }
 
-            composable(Routes.Digimon.route) {
-                DigimonScreen(
-                    onNavigateToHome = { navController.navigate(Routes.Home.route) },
-                    onNavigateToDetail = { digimonId ->
-                        navController.navigate("DigimonDetailScreen/$digimonId")
-                    }
-                )
-            }
+                composable(
+                    route = "DigimonDetailScreen/{digimonId}",
+                    arguments = listOf(navArgument("digimonId") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val digimonId = backStackEntry.arguments?.getString("digimonId") ?: ""
+                    DigimonDetailScreen(
+                        digimonId = digimonId,
+                        onNavigateBack = { navController.popBackStack() }
+                    )
+                }
 
-            composable(
-                route = "DigimonDetailScreen/{digimonId}",
-                arguments = listOf(navArgument("digimonId") { type = NavType.StringType })
-            ) { backStackEntry ->
-                val digimonId = backStackEntry.arguments?.getString("digimonId") ?: ""
-                DigimonDetailScreen(
-                    digimonId = digimonId,
-                    onNavigateBack = { navController.popBackStack() }
-                )
-            }
+                composable(Routes.Items.route) {
+                    ItemsScreen(
+                        onNavigateToHome = { navController.navigate(Routes.Home.route) },
+                        onNavigateToDigimon = { navController.navigate(Routes.Digimon.route) },
+                        onNavigateToExchange = { navController.navigate(Routes.ExchangePrepare.route) }
+                    )
+                }
 
-            composable(Routes.Items.route) {
-                ItemsScreen(
-                    onNavigateToHome = { navController.navigate(Routes.Home.route) },
-                    onNavigateToDigimon = { navController.navigate(Routes.Digimon.route) },
-                    onNavigateToExchange = { navController.navigate(Routes.ExchangePrepare.route) }
-                )
-            }
+                composable(Routes.Settings.route) {
+                    SettingsScreen(
+                        onNavigateToProfile = { navController.navigate(Routes.Profile.route) }
+                    )
+                }
 
-            composable(Routes.Settings.route) {
-                SettingsScreen(
-                    onNavigateToProfile = { navController.navigate(Routes.Profile.route) }
-                )
-            }
+                composable(Routes.ExchangePrepare.route) {
+                    ExchangePrepareScreen(
+                        onNavigateToHome = { navController.navigate(Routes.Home.route) },
+                        onNavigateToConnection = { navController.navigate(Routes.ExchangeConnection.route) }
+                    )
+                }
 
-            composable(Routes.ExchangePrepare.route) {
-                ExchangePrepareScreen(
-                    onNavigateToHome = { navController.navigate(Routes.Home.route) },
-                    onNavigateToConnection = { navController.navigate(Routes.ExchangeConnection.route) }
-                )
-            }
+                composable(Routes.ExchangeConnection.route) {
+                    ExchangeConnectionScreen(
+                        onNavigateToPrepare = { navController.navigate(Routes.ExchangePrepare.route) },
+                        onNavigateToConfirmation = { navController.navigate(Routes.ExchangeConfirmation.route) },
+                        onNavigateToQr = { navController.navigate(Routes.ExchangeQr.route) }
+                    )
+                }
 
-            composable(Routes.ExchangeConnection.route) {
-                ExchangeConnectionScreen(
-                    onNavigateToPrepare = { navController.navigate(Routes.ExchangePrepare.route) },
-                    onNavigateToConfirmation = { navController.navigate(Routes.ExchangeConfirmation.route) },
-                    onNavigateToQr = { navController.navigate(Routes.ExchangeQr.route) }
-                )
-            }
+                composable(Routes.ExchangeConfirmation.route) {
+                    ExchangeConfirmationScreen(
+                        onNavigateToPrepare = { navController.navigate(Routes.ExchangePrepare.route) },
+                        onNavigateToResult = { navController.navigate(Routes.ExchangeResult.route) }
+                    )
+                }
 
-            composable(Routes.ExchangeConfirmation.route) {
-                ExchangeConfirmationScreen(
-                    onNavigateToPrepare = { navController.navigate(Routes.ExchangePrepare.route) },
-                    onNavigateToResult = { navController.navigate(Routes.ExchangeResult.route) }
-                )
-            }
+                composable(Routes.ExchangeQr.route) {
+                    ExchangeQrScreen(
+                        onNavigateToConnection = { navController.navigate(Routes.ExchangeConnection.route) },
+                        onNavigateToResult = { navController.navigate(Routes.ExchangeResult.route) }
+                    )
+                }
 
-            composable(Routes.ExchangeQr.route) {
-                ExchangeQrScreen(
-                    onNavigateToConnection = { navController.navigate(Routes.ExchangeConnection.route) },
-                    onNavigateToResult = { navController.navigate(Routes.ExchangeResult.route) }
-                )
-            }
-
-            composable(Routes.ExchangeResult.route) {
-                ExchangeResultScreen(
-                    onNavigateToHome = { navController.navigate(Routes.Home.route) },
-                    onNavigateToDigimon = { navController.navigate(Routes.Digimon.route) }
-                )
+                composable(Routes.ExchangeResult.route) {
+                    ExchangeResultScreen(
+                        onNavigateToHome = { navController.navigate(Routes.Home.route) },
+                        onNavigateToDigimon = { navController.navigate(Routes.Digimon.route) }
+                    )
+                }
             }
         }
     }
-}
+//}

@@ -9,12 +9,14 @@
     <string name="return_to_login_button">Return to login</string>
     <string name="already_have_an_account">Already have an account? Log in</string>
 
+
     <!-- Register Screen -->
     <string name="register_label">Register</string>
     <string name="insert_user_label">Enter username</string>
     <string name="insert_gmail_label">Enter email</string>
     <string name="insert_password_label">Enter password</string>
     <string name="confirm_insert_password_label">Confirm password</string>
+
 
     <!-- Forgot Password Screen -->
     <string name="forgot_password_instruction_label">We’ll send you an email with instructions to recover your account.</string>
