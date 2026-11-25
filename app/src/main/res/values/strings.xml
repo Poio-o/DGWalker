@@ -73,6 +73,16 @@
     <string name="confirm_retire_message">Are you sure you want to retire %1$s from the team?</string>
     <string name="confirm">Confirm</string>
 
+    <!-- Permissions -->
+    <string name="permission_rationale_title">Permissions Required</string>
+    <string name="permission_rationale_message">DGWalker needs activity recognition and notification permissions to track your steps in the background and level up your Digimon.</string>
+    <string name="grant_permissions">Grant Permissions</string>
+
+    <!-- Foreground Service Notification -->
+    <string name="notification_channel_name">DGWalker Walk Session</string>
+    <string name="notification_title">DGWalker - Walk in Progress</string>
+    <string name="notification_text">Steps this session: %1$d</string>
+
     <!-- General Placeholders / Buttons -->
     <string name="user_profile_title">User Profile</string>
     <string name="inventory_title">Item Inventory</string>

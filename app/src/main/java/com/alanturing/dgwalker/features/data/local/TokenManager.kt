@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.datastore.preferences.core.intPreferencesKey
 import com.alanturing.dgwalker.features.data.remote.dto.UserDto
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -26,10 +27,26 @@ class TokenManager @Inject constructor(
         private val USER_NAME_KEY = stringPreferencesKey("user_name")
         private val USER_EMAIL_KEY = stringPreferencesKey("user_email")
         private val USER_CREATED_AT_KEY = stringPreferencesKey("user_created_at")
+
+        private val USER_STEPS_KEY = intPreferencesKey("user_steps")
     }
 
     val tokenFlow: Flow<String?> = context.dataStore.data.map { preferences ->
         preferences[TOKEN_KEY]
+    }
+
+    val userStepsFlow: Flow<Int> = context.dataStore.data.map { preferences ->
+        preferences[USER_STEPS_KEY] ?: 0
+    }
+
+    suspend fun saveUserSteps(steps: Int) {
+        context.dataStore.edit { preferences ->
+            preferences[USER_STEPS_KEY] = steps
+        }
+    }
+
+    suspend fun getUserStepsSync(): Int {
+        return userStepsFlow.firstOrNull() ?: 0
     }
 
     suspend fun saveToken(token: String) {

@@ -16,8 +16,6 @@ sealed class Routes(val route: String) {
     @Serializable
     object Profile : Routes("ProfileScreen")
     @Serializable
-    object AuthFeature : Routes("LoginScreen")
-    @Serializable
     object Login : Routes("LoginScreen")
     @Serializable
     object Register : Routes("RegisterScreen")

@@ -1,5 +1,62 @@
 # Changelog
 
+## v0.3.3 - Podómetro SensorManager y Sincronización de Pasos de Usuario [SUB-09-3]
+
+### Añadido
+- Implementación de `SensorEventListener` en `StepTrackerService` para escuchar en tiempo real los sensores de hardware `TYPE_STEP_COUNTER` (con fallback a `TYPE_STEP_DETECTOR`)
+- Lógica de persistencia periódica de pasos a nivel de usuario utilizando `TokenManager` (DataStore Preferences) cada 10 pasos y al destruir el servicio
+- Conexión del flujo reactivo en `HomeViewModel` y `HomeScreen` para reflejar en tiempo real los pasos acumulados (`userSteps`) en la tarjeta `DigiStepsCard`
+- Arranque automático del servicio en primer plano (`StepTrackerService`) desde `HomeScreen` una vez concedidos los permisos requeridos
+
+### Archivos modificados
+- `app/src/main/java/com/alanturing/dgwalker/core/service/StepTrackerService.kt` - Integración con `SensorManager` y persistencia periódica
+- `app/src/main/java/com/alanturing/dgwalker/features/data/local/TokenManager.kt` - Métodos para guardar y leer los pasos del usuario
+- `app/src/main/java/com/alanturing/dgwalker/features/home/ui/HomeViewModel.kt` - Inclusión de `userStepsFlow` en el `StateFlow<HomeUiState>`
+- `app/src/main/java/com/alanturing/dgwalker/features/home/ui/HomeScreen.kt` - Conexión de `uiState.userSteps` y arranque automático del servicio de podómetro
+- `CHANGELOG.md` - Registro de cambios del proyecto Android
+
+---
+
+## v0.3.2 - StepTrackerService y Notificación Persistente [SUB-09-2]
+
+### Añadido
+- `StepNotificationHelper` para la creación del canal de notificaciones y construcción de la notificación persistente del paseo con `NotificationCompat.Builder` y `PendingIntent` interactivo hacia la `MainActivity`
+- `StepTrackerService` (Foreground Service) gestionando el ciclo de vida del servicio en primer plano (`START_STICKY`, `startForeground` con tipo `health`)
+- Registro del servicio en `AndroidManifest.xml` con `android:foregroundServiceType="health"`
+
+### Archivos creados
+- `app/src/main/java/com/alanturing/dgwalker/core/service/StepNotificationHelper.kt` - Ayudante de notificaciones persistentes
+- `app/src/main/java/com/alanturing/dgwalker/core/service/StepTrackerService.kt` - Servicio Foreground para el control del paseo
+
+### Archivos modificados
+- `app/src/main/AndroidManifest.xml` - Declaración de `StepTrackerService`
+- `app/src/main/res/values/strings.xml` - Textos de canales y notificaciones en inglés
+- `app/src/main/res/values-es/strings.xml` - Textos de canales y notificaciones en español
+- `CHANGELOG.md` - Registro de cambios del proyecto Android
+
+---
+
+## v0.3.1 - Configuración de Permisos y Manifiesto para Podómetro [SUB-09-1]
+
+### Añadido
+- Declaración de permisos de hardware y notificaciones en `AndroidManifest.xml` (`ACTIVITY_RECOGNITION`, `POST_NOTIFICATIONS`, `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_HEALTH`, `RECEIVE_BOOT_COMPLETED`)
+- Declaración de característica de hardware opcional `android.hardware.sensor.step_counter`
+- `PermissionManager` para la validación y solicitud adaptativa de permisos según la versión de Android (`ACTIVITY_RECOGNITION` para Android 10+ y `POST_NOTIFICATIONS` para Android 13+)
+- Integración del flujo de solicitud de permisos en tiempo de ejecución en `HomeScreen` mediante `rememberLauncherForActivityResult` para mostrar el diálogo emergente nativo al usuario
+- Recursos de texto internacionalizados en inglés y español con la justificación y títulos para la solicitud de permisos
+
+### Archivos creados
+- `app/src/main/java/com/alanturing/dgwalker/core/permissions/PermissionManager.kt` - Gestor de permisos en tiempo de ejecución
+
+### Archivos modificados
+- `app/src/main/AndroidManifest.xml` - Inclusión de permisos de podómetro y servicio en primer plano
+- `app/src/main/java/com/alanturing/dgwalker/features/home/ui/HomeScreen.kt` - Integración del flujo de solicitud automática de permisos al cargar la pantalla principal
+- `app/src/main/res/values/strings.xml` - Añadidos textos de justificación de permisos en inglés
+- `app/src/main/res/values-es/strings.xml` - Añadidos textos de justificación de permisos en español
+- `CHANGELOG.md` - Registro de cambios del proyecto Android
+
+---
+
 ## v0.2.7 - Eventos de Interacción con Corrutinas [SUB-06-3]
 
 ### Añadido
@@ -43,7 +100,6 @@
 - `app/src/main/java/com/alanturing/dgwalker/features/digimon/ui/DigimonScreen.kt` - Rediseño del grid 2x2 de la colección
 - `app/src/main/java/com/alanturing/dgwalker/features/digimon/ui/DigimonDetailScreen.kt` - Pantalla de detalle con carrusel, renombrado y botón de alimentar
 - `app/src/main/java/com/alanturing/dgwalker/core/navigation/AppNavHost.kt` - Configuración de rutas y argumentos para el detalle de Digimon
-- `CHANGELOG.md` - Registro de cambios del proyecto Android
 
 ---
 

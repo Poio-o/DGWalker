@@ -80,17 +80,14 @@ fun AppNavHost(modifier: Modifier = Modifier) {
             startDestination = Routes.Login.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            //navigation<Routes.AuthFeature>(
-            //    startDestination = Routes.Login
-            //){
                 composable(Routes.Login.route) {
                     LoginScreen(
-                        onNavigateToHome = { navController.navigate(Routes.Home.route) //{
-                           // popUpTo<Routes.Login>{
-                            //    inclusive = true
-                            //    saveState = true
-                           // }
-                        //}
+                        onNavigateToHome = { navController.navigate(Routes.Home.route) {
+                            popUpTo(Routes.Login.route){
+                                inclusive = true
+                                saveState = true
+                            }
+                        }
                 },
                         onNavigateToRegister = { navController.navigate(Routes.Register.route) },
                         onNavigateToForgotPassword = { navController.navigate(Routes.ForgotPassword.route) }
@@ -99,7 +96,12 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
                 composable(Routes.Register.route) {
                     RegisterScreen(
-                        onNavigateToHome = { navController.navigate(Routes.Home.route) },
+                        onNavigateToHome = { navController.navigate(Routes.Home.route){
+                            popUpTo(Routes.Register.route){
+                                inclusive = true
+                                saveState = true
+                            }
+                        } },
                         onNagivateToLogin = { navController.navigate(Routes.Login.route) }
                     )
                 }
@@ -222,4 +224,3 @@ fun AppNavHost(modifier: Modifier = Modifier) {
             }
         }
     }
-//}

@@ -1,5 +1,7 @@
 package com.alanturing.dgwalker.features.home.ui
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -21,12 +23,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,12 +40,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.alanturing.dgwalker.R
+import com.alanturing.dgwalker.core.permissions.PermissionManager
 import com.alanturing.dgwalker.core.ui.components.StatusIndicator
 import com.alanturing.dgwalker.core.ui.theme.CardBackground
 import com.alanturing.dgwalker.core.ui.theme.ElectricCyan
 import com.alanturing.dgwalker.core.ui.theme.InputPlaceholder
 import com.alanturing.dgwalker.core.ui.theme.NeonBlueBorder
 import com.alanturing.dgwalker.features.domain.model.Digimon
+import android.content.Intent
+import android.os.Build
+import com.alanturing.dgwalker.core.service.StepTrackerService
 
 @Composable
 fun HomeScreen(
@@ -51,9 +59,40 @@ fun HomeScreen(
     onNavigateToExchange: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val activeDigimon = uiState.team.find { it.isWalking } ?: uiState.team.firstOrNull()
 
+    val permissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val allGranted = permissions.values.all { it }
+        if (allGranted) {
+            val intent = Intent(context, StepTrackerService::class.java).apply {
+                action = StepTrackerService.ACTION_START
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(intent)
+            } else {
+                context.startService(intent)
+            }
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        if (!PermissionManager.hasAllPermissions(context)) {
+            PermissionManager.requestPermissions(permissionLauncher)
+        } else {
+            val intent = Intent(context, StepTrackerService::class.java).apply {
+                action = StepTrackerService.ACTION_START
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(intent)
+            } else {
+                context.startService(intent)
+            }
+    }
+}
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -111,7 +150,7 @@ fun HomeScreen(
                 }
 
                 // Seccion de Pasos DigiSteps
-                DigiStepsCard(steps = activeDigimon?.stepsWalked ?: 0)
+                DigiStepsCard(steps = uiState.userSteps)
 
                 Spacer(modifier = Modifier.height(16.dp))
             }
@@ -205,7 +244,7 @@ fun DigiStepsCard(steps: Int) {
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "$steps",
                 fontSize = 38.sp,

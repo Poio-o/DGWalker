@@ -2,6 +2,7 @@ package com.alanturing.dgwalker.features.home.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alanturing.dgwalker.features.data.local.TokenManager
 import com.alanturing.dgwalker.features.domain.model.Digimon
 import com.alanturing.dgwalker.features.domain.model.InventoryItem
 import com.alanturing.dgwalker.features.domain.repository.DigimonRepository
@@ -19,6 +20,7 @@ data class HomeUiState(
     val isLoading: Boolean = true,
     val team: List<Digimon> = emptyList(),
     val inventory: List<InventoryItem> = emptyList(),
+    val userSteps: Int = 0,
     val userMessage: String? = null,
     val error: String? = null
 )
@@ -26,7 +28,8 @@ data class HomeUiState(
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val digimonRepository: DigimonRepository,
-    private val inventoryRepository: InventoryRepository
+    private val inventoryRepository: InventoryRepository,
+    private val tokenManager: TokenManager? = null
 ) : ViewModel() {
 
     private val _userMessage = MutableStateFlow<String?>(null)
@@ -39,13 +42,15 @@ class HomeViewModel @Inject constructor(
     val uiState: StateFlow<HomeUiState> = combine(
         digimonRepository.getWalkingTeam(),
         inventoryRepository.getAllAvailableItems(),
+        tokenManager?.userStepsFlow ?: MutableStateFlow(0),
         _userMessage,
         _error
-    ) { team, inventory, message, error ->
+    ) { team, inventory, steps, message, error ->
         HomeUiState(
             isLoading = false,
             team = team,
             inventory = inventory,
+            userSteps = steps,
             userMessage = message,
             error = error
         )
