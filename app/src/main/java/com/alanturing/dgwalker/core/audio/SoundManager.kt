@@ -9,7 +9,9 @@ import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -49,11 +51,15 @@ class SoundManager @Inject constructor(
     }
 
     private fun getSfxVolumeSync(): Float{
-        TODO("Not yet implemented")
+        return runBlocking {
+            context.audioDataStore.data.map { prefs -> prefs[sfxVolumeKey] ?: 1.0f }.first()
+        }
     }
 
     private fun getIsMuted(): Boolean {
-        TODO("Not yet implemented")
+        return runBlocking {
+            context.audioDataStore.data.map { prefs -> prefs [isMutedKey] ?: false}.first()
+        }
     }
 
     suspend fun setSfxVolume(volume: Float) {
