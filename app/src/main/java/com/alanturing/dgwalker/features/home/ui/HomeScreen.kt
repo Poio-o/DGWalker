@@ -71,11 +71,7 @@ fun HomeScreen(
             val intent = Intent(context, StepTrackerService::class.java).apply {
                 action = StepTrackerService.ACTION_START
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(intent)
-            } else {
-                context.startService(intent)
-            }
+            context.startForegroundService(intent)
         }
     }
 
@@ -86,12 +82,8 @@ fun HomeScreen(
             val intent = Intent(context, StepTrackerService::class.java).apply {
                 action = StepTrackerService.ACTION_START
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(intent)
-            } else {
-                context.startService(intent)
-            }
-    }
+            context.startForegroundService(intent)
+        }
 }
     Box(
         modifier = Modifier.fillMaxSize(),

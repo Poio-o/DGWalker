@@ -66,16 +66,12 @@ class StepTrackerService : Service(), SensorEventListener {
 
     private fun startServiceForeground() {
         val notification = StepNotificationHelper.buildNotification(this, sessionSteps)
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-            ServiceCompat.startForeground(
-                this,
-                StepNotificationHelper.NOTIFICATION_ID,
-                notification,
-                ServiceInfo.FOREGROUND_SERVICE_TYPE_HEALTH
-            )
-        } else {
-            startForeground(StepNotificationHelper.NOTIFICATION_ID, notification)
-        }
+        ServiceCompat.startForeground(
+            this,
+            StepNotificationHelper.NOTIFICATION_ID,
+            notification,
+            ServiceInfo.FOREGROUND_SERVICE_TYPE_HEALTH
+        )
     }
 
     private fun registerSensors() {
